@@ -41,13 +41,13 @@ class Stack:
         return self.size
 
     def push(self, value):
+        new_node = Node(value)
         if self.head == None:
             self.size += 1
-            self.head = Node(value)
+            self.head = new_node
         else:
             self.size += 1
-            new_node = Node(value)
-            new_node.set_next=self.head
+            new_node.next_node=self.head
             self.head = new_node
 
     def pop(self):
@@ -55,7 +55,6 @@ class Stack:
             pass
         else:
             self.size -= 1
-            popped_node = self.head
-            new_head = popped_node.next_node
-            self.head = new_head
-            return self.head
+            pop_node = self.head
+            self.head = pop_node.next_node
+            return pop_node.value

@@ -62,4 +62,4 @@ class Queue:
             self.size -= 1
             dequeued = self.front
             self.front = dequeued.next_node
-            return self.front
+            return dequeued.value
