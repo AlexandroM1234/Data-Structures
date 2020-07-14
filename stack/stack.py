@@ -34,12 +34,28 @@ from singly_linked_list import Node , LinkedList
 # Linked List Implementation
 class Stack:
     def __init__(self):
-        pass
+        self.size = 0
+        self.head = None
+
     def __len__(self):
-        pass
+        return self.size
 
     def push(self, value):
-        pass
+        if self.head == None:
+            self.size += 1
+            self.head = Node(value)
+        else:
+            self.size += 1
+            new_node = Node(value)
+            new_node.set_next=self.head
+            self.head = new_node
 
     def pop(self):
-        pass
+        if self.size == 0:
+            pass
+        else:
+            self.size -= 1
+            popped_node = self.head
+            new_head = popped_node.next_node
+            self.head = new_head
+            return self.head

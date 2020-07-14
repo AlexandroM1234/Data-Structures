@@ -39,12 +39,27 @@ from singly_linked_list import Node , LinkedList
 class Queue:
     def __init__(self):
         self.size = 0
-        # self.storage= ?
+        self.front = None
+        self.back = None
     def __len__(self):
-        pass
+        return self.size
 
     def enqueue(self, value):
-        pass
+        queued = Node(value)
+        if self.back == None:
+            self.size += 1
+            self.front = queued
+            self.back = queued
+        else:
+            self.size += 1
+            self.back.next_node = queued
+            self.back = queued
 
     def dequeue(self):
-        pass
+        if self.front== None:
+            pass
+        else:
+            self.size -= 1
+            dequeued = self.front
+            self.front = dequeued.next_node
+            return self.front
