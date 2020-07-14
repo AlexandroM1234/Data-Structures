@@ -57,7 +57,7 @@ class Queue:
 
     def dequeue(self):
         if self.front== None:
-            pass
+            return None
         else:
             self.size -= 1
             dequeued = self.front
