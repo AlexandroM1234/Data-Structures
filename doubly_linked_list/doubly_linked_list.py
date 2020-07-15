@@ -6,11 +6,8 @@ class ListNode:
     def __init__(self, value, prev=None, next=None):
         self.prev = prev
         self.value = value
-        self.next = next
+        self.next = next 
 
-    def delete(self):
-        self.next
-        
 """
 Our doubly-linked list class. It holds references to 
 the list's head and tail nodes.
@@ -56,25 +53,24 @@ class DoublyLinkedList:
     """
     def remove_from_head(self):
         # store the value of the head
-        head_value = self.head.value
         # decrement the length of the DLL
         self.length -= 1
         # delete the head
         # if head.next is not None
-        if self.head.next is not None:
+        if self.head.next != None:
             # set head.next's prev to None
             self.head.next.prev = None
             # set head to head.next
             self.head =  self.head.next
+            return self.head.value
         # else (if head.next is None)
         else:
             # set head to None
-            self.head = None
             # set tail to None
-            self.tail = None
+            self.head = None
+            self.tail= None
+            return None
         # return the value
-        return head_value
-            
     """
     Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
@@ -104,48 +100,78 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_tail(self):
-        # store the value of the tail
-        tail_value = self.tail.value
-        # decrement the length of the DLL
-        self.length -= 1
-        # delete the tail
-        # if tail.prev is not None
-        if self.tail.prev is not None:
-            # set tail.prev's next to None
-            self.tail.prev.next = None
-            # set tail to tail.prev
-            self.tail = self.tail.prev
-        # else (if tail.prev is None)
-        else:
-            # set head to None
-            self.head = None
-            # set tail to None
-            self.tail = None
-        # return the value
-        return tail_value
+        value = self.tail.value
+        self.delete(self.tail)
+        return value
     """
     Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        pass
+        if node is self.head:
+            return self.head
+
+        elif node is self.tail:
+            node.next = self.head
+            self.head.prev = self.tail
+            self.head = node
+        else:
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+
     """
     Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        pass
+        if node is self.head:
+            node.next = self.tail
+            self.tail.next = None
+            self.tail = node
 
+        elif node is self.tail:
+            return self.tail
+
+        else:
+            node.next = self.tail
+            self.tail.next = None
+            self.tail = node
     """
     Deletes the input node from the List, preserving the 
     order of the other elements of the List.
     """
     def delete(self, node):
-        pass
+        if not self.head and not self.tail:
+            return None
 
+        self.length -= 1
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+
+        elif self.head == node:
+            self.head = node.next
+            node.delete()
+            
+        elif self.tail == node:
+            self.tail = node.prev
+            node.delete()
+
+        else:
+            node.delete()
     """
     Finds and returns the maximum value of all the nodes 
     in the List.
     """
     def get_max(self):
-        pass
+        if not self.head:
+            return None
+        max_value = self.head.value
+        current = self.head
+        while current:
+            if current.value > max_value:
+                max_value = current.value
+            else:
+                current = current.next
+        return max_value
