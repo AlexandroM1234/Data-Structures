@@ -126,17 +126,31 @@ class DoublyLinkedList:
     """
     def move_to_end(self, node):
         if node is self.head:
-            node.next = self.tail
-            self.tail.next = None
+            tail = self.tail
+            self.head = node.next
+            self.head.prev = None
+            self.tail.next = node
             self.tail = node
-
+            self.tail.next = None
+            self.tail.prev = tail
         elif node is self.tail:
             return self.tail
 
         else:
-            node.next = self.tail
-            self.tail.next = None
-            self.tail = node
+            current = self.head
+            while current:
+                if current == node:
+                    previous_node = current.prev
+                    next_node = current.next
+                    previous_node.next = next_node
+                    next_node.prev = previous_node
+                    current.next = None
+                    current.prev = None
+                    self.tail.next = node
+                    node.prev = self.tail
+                    self.tail = node
+                    self.tail.next = None
+                current = current.next
     """
     Deletes the input node from the List, preserving the 
     order of the other elements of the List.
